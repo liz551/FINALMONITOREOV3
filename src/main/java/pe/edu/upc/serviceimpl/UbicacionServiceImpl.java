@@ -1,5 +1,6 @@
 package pe.edu.upc.serviceimpl;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +28,11 @@ public class UbicacionServiceImpl implements UbicacionService {
     public Ubicacion createUbicacion(int userId, Ubicacion em) {
 
         return patientRepository.findById(userId).map(user -> {
-           
+        	java.util.Date date=new java.util.Date();
                 em.setPatient(user);
                 em.setLatitud(em.getLatitud());
                 em.setLongitud(em.getLongitud());
-                em.setLongitud(em.getFecha());
+                em.setFecha(date);
                 return UbicacionRepository.save(em);
    
         }).orElseThrow(() -> new ResourceNotFoundException("Patient", "Id", userId));

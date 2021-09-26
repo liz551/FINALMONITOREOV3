@@ -1,6 +1,8 @@
 package pe.edu.upc.resource;
 
 
+import java.sql.Date;
+
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -10,15 +12,16 @@ public class UbicacionResource {
 
 	private String latitud;
     private String longitud;
+    private Date fecha;
    
-    public String getFecha() {
+    
+	
+	public Date getFecha() {
 		return fecha;
 	}
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	private String fecha;
-	
 	public String getLatitud() {
 		return latitud;
 	}

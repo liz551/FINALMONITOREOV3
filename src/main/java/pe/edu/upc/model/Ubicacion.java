@@ -3,6 +3,8 @@ package pe.edu.upc.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
+import java.util.Date;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -27,17 +29,20 @@ public class Ubicacion {
     
     @NotNull
     @Column(name = "fecha", nullable = false)
-    private String fecha;
+    private Date fecha;
     
-    public String getFecha() {
+    
+
+
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	
-	 @ManyToOne(fetch = FetchType.LAZY, optional = false)
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "patient_id", nullable = false)
     private MovPatient patient;
 	public MovPatient getPatient() {
