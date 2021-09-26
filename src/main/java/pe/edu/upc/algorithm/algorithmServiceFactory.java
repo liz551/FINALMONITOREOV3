@@ -19,7 +19,7 @@ public class algorithmServiceFactory implements FactoryBean<algorithmService> {
 	//This is not required if we use jython standalone JAR 
 	 
 	PySystemState systemState = Py.getSystemState();
-	systemState.path.append(new PyString("C:\\jython2.7.2\\Lib"));		
+	systemState.path.append(new PyString("useradmin@VMitinnova:\\usr\\bin\\jython"));		
 
 	//Here is the actual code that interprets our python file. 
 	
