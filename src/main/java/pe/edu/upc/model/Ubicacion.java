@@ -3,8 +3,6 @@ package pe.edu.upc.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import java.util.Date;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -12,12 +10,10 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name ="ubicacion")
 public class Ubicacion {
+    @Id
+    @Column(name = "patient_id")
+    private int idUbicacion;
 
-	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-    private int id;
 
     @NotNull
     @Column(name = "latitud", nullable = false)
@@ -26,40 +22,19 @@ public class Ubicacion {
     @NotNull
     @Column(name = "longitud", nullable = false)
     private String longitud;
-    
-    @NotNull
-    @Column(name = "fecha", nullable = false)
-    private Date fecha;
-    
-    
 
-
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "patient_id", nullable = false)
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "patient_id")
+    @JsonIgnore
     private MovPatient patient;
-	public MovPatient getPatient() {
-		return patient;
+
+	public int getIdUbicacion() {
+		return idUbicacion;
 	}
 
-	public void setPatient(MovPatient patient) {
-		this.patient = patient;
-	}
-
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setIdUbicacion(int idUbicacion) {
+		this.idUbicacion = idUbicacion;
 	}
 
 	public String getLatitud() {
@@ -78,7 +53,14 @@ public class Ubicacion {
 		this.longitud = longitud;
 	}
 
+	public MovPatient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(MovPatient patient) {
+		this.patient = patient;
+	}
+    
     
     
 }
-

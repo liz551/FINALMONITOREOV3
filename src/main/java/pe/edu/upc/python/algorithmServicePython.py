@@ -42,18 +42,27 @@ class algorithmServicePython(algorithmService):
         d = eval(json.dumps(c.fetchall()))
         d=str(d)[4:-4]
         res = json.loads(d)
+        print res
         data = {
             "Inputs": {
-                "WebServiceInput0":
-                        [res]
+                "input1":
+                    [{
+                            'HC': "1",
+                            'Nombres': "Pepito",
+                            'Apellidos': "Quispe",
+                            'DNI': "70657000",
+                            'RC': "70",
+                            'Fecha Registro': "27/05/2015",
+                            'Transtorno': "Bradicardia"
+                    }]
             },
             "GlobalParameters": {
             },
         }
 
         body = str.encode(json.dumps(data))
-        url = 'http://52.161.13.55:80/api/v1/service/deployalgoritmopredictivo/score'
-        api_key = '0TaiUUA1zttG3wu5HesF6DglOuSDOVLe'  # Replace this with the API key for the web service
+        url = 'https://ussouthcentral.services.azureml.net/workspaces/b09137d86b7748f78939532feac0676b/services/ce0530eb7e2a4989b8b43810b8e967b8/execute?api-version=2.0&format=swagger'
+        api_key = 'eagBJ0o9OWw7AZGVLnfJx/j2Ma8UN//aZ4cilMf8gB9MVZzKJY5CT/rRoRygl2IUSUrxIKZN0tokbD6nz04FSQ=='  # Replace this with the API key for the web service
         headers = {'Content-Type': 'application/json', 'Authorization': ('Bearer ' + api_key)}
 
         req = urllib2.Request(url, body, headers)
@@ -63,18 +72,15 @@ class algorithmServicePython(algorithmService):
 
             result = response.read()
             json_result = json.loads(result)
-            #for
-            output = json_result["Results"]["WebServiceOutput0"][0]
-            return('Paciente: {}\nRitmo Cardiaco: {}\nResultado: {}'.format(output["HC"], output["RC"],
+            output = json_result["Results"]["output1"][0]
+            return ('Paciente: {}\nRitmo Cardiaco: {}\nResultado: {}'.format(output["DNI"], output["RC"],
                                                                            output["Scored Labels"]))
-
         except urllib2.HTTPError as error:
             print("The request failed with status code: " + str(error.code))
 
             # Print the headers - they include the requert ID and the timestamp, which are useful for debugging the failure
             print(error.info())
-            print(json.loads(error.read().decode("utf8", 'ignore')))
-            return self.value
+            print(json.loads(error.read()))
 
 
 

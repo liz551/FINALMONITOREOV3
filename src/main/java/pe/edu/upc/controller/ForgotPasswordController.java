@@ -41,7 +41,7 @@ public class ForgotPasswordController {
             userService.updateResetPasswordToken(token, email);
             String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
             sendEmail(email, resetPasswordLink);
-            model.addAttribute("message", "Hemos enviado un enlace para restablecer la contraseÃ±a a su correo electronico. Por favor, compruebe.");
+            model.addAttribute("message", "Hemos enviado un enlace para restablecer la contraseña a su correo electronico. Por favor, compruebe.");
 
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
@@ -58,14 +58,14 @@ public class ForgotPasswordController {
         helper.setFrom("contact@shopme.com", "Shopme Support");
         helper.setTo(recipientEmail);
 
-        String subject = "AquÃ­ esta el enlace para restablecer su contraseÃ±a";
+        String subject = "Aqui­ esta el enlace para restablecer su contraseña";
 
         String content = "<p>Hola,</p>"
-                + "<p>Ha solicitado restablecer su contraseï¿½a.</p>"
-                + "<p>Haga clic en el enlace de abajo para cambiar su contraseÃ±a:</p>"
-                + "<p><a href=\"" + link + "\">Cambiar mi contraseÃ±a</a></p>"
+                + "<p>Ha solicitado restablecer su contraseña.</p>"
+                + "<p>Haga clic en el enlace de abajo para cambiar su contraseña:</p>"
+                + "<p><a href=\"" + link + "\">Cambiar mi contraseña</a></p>"
                 + "<br>"
-                + "<p>Ignore este correo electronico si recuerda su contraseÃ±a, "
+                + "<p>Ignore este correo electronico si recuerda su contraseña, "
                 + "o no ha realizado la solicitud.</p>";
 
         helper.setSubject(subject);
@@ -103,7 +103,7 @@ public class ForgotPasswordController {
         } else {
             userService.updatePassword(customer, password);
 
-            model.addAttribute("message", "Has cambiado satisfactoriamente tu contraseÃ±a.");
+            model.addAttribute("message", "You have successfully changed your password.");
         }
 
         return "login";
